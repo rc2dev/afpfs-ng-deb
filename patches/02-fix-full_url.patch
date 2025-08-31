@@ -1,0 +1,11 @@
+--- cmdline/cmdline_afp.h.orig	2025-09-20 12:50:31.940268626 -0300
++++ cmdline/cmdline_afp.h	2025-09-20 12:50:38.880796623 -0300
+@@ -1,7 +1,7 @@
+ #ifndef CMDLINE_AFP_H_
+ #define CMDLINE_AFP_H_
+ 
+-int full_url;
++extern int full_url;
+ 
+ int com_connect(char * arg);
+ int com_dir(char * arg);
