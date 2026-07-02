@@ -3,7 +3,6 @@ DOCKER_DIR = $(PWD)/docker
 PATCHES_DIR= $(PWD)/patches
 DIST = $(PWD)/dist
 
-
 .PHONY: build-image package clean 
 
 all: package
@@ -14,6 +13,7 @@ build-image:
 package: build-image
 	mkdir -p $(DIST)
 	docker run \
+		-e PKG_REVISION=$(PKG_REVISION) \
 		-v $(DIST):/app/dist \
 		-v $(PATCHES_DIR):/app/patches \
 		$(IMAGE)

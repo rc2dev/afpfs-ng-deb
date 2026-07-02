@@ -5,6 +5,7 @@ set -euo pipefail
 readonly pkg_name="afpfs-ng"
 declare pkg_version  # Will be derived from commit below.
 readonly repo_commit="f6e24eb73c9283732c3b5d9cb101a1e2e4fade3e"
+readonly pkg_revision="1"
 
 readonly pkg_arch="$(dpkg-architecture -qDEB_BUILD_ARCH)"
 readonly debian_codename="$(lsb_release -cs)"
@@ -58,7 +59,7 @@ build() {
 package() {
   mkdir -p "$dist_dir"
 
-  local -r deb_name="${pkg_name}_${pkg_version}_${pkg_arch}_${debian_codename}"
+  local -r deb_name="${pkg_name}_${pkg_version}-${pkg_revision}_${pkg_arch}_${debian_codename}"
   local -r deb_file="$dist_dir/$deb_name.deb"
 
   local -r pkg_root="/app/$deb_name"
@@ -69,7 +70,7 @@ package() {
 
   cat > "$pkg_root/DEBIAN/control" <<EOF
 Package: $pkg_name
-Version: $pkg_version
+Version: $pkg_version-$pkg_revision
 Section: $pkg_section
 Priority: $pkg_priority
 Architecture: $pkg_arch
