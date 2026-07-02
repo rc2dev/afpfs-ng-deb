@@ -3,7 +3,9 @@
 set -euo pipefail
 
 readonly pkg_name="afpfs-ng"
-readonly pkg_version="0.8.2"
+declare pkg_version  # Will be derived from commit below.
+readonly repo_commit="f6e24eb73c9283732c3b5d9cb101a1e2e4fade3e"
+
 readonly pkg_arch="$(dpkg-architecture -qDEB_BUILD_ARCH)"
 readonly debian_codename="$(lsb_release -cs)"
 readonly pkg_desc="Client for the Apple Filing Protocol"
@@ -13,7 +15,6 @@ readonly pkg_section="utils"
 readonly pkg_priority="optional"
 
 readonly repo_url="https://github.com/simonvetter/afpfs-ng"
-readonly repo_commit="f6e24eb73c9283732c3b5d9cb101a1e2e4fade3e"
 readonly repo_dir="/app/repo"
 readonly build_dir="/app/build"
 readonly dist_dir="/app/dist"
@@ -34,6 +35,8 @@ prepare() {
   
   cd "$repo_dir"
   git checkout "$repo_commit"
+
+  pkg_version="$(grep -oP 'AC_INIT\(\[?afpfs-ng\]?,\s*\[?\K[0-9.]+' configure.ac)"
 }
 
 apply_patches() {
