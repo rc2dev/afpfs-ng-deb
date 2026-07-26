@@ -1,7 +1,7 @@
 FROM debian:bookworm-slim
 
 # For cloning: git ca-certificates
-# For building: build-essential libfuse-dev libreadline-dev
+# For building: build-essential libfuse-dev libreadline-dev libgcrypt20-dev
 # For packaging: dpkg
 # For naming deb package: lsb-release
 RUN apt update && apt install -y --no-install-recommends \
@@ -10,6 +10,7 @@ RUN apt update && apt install -y --no-install-recommends \
         build-essential \
         libfuse-dev \
         libreadline-dev \
+	libgcrypt20-dev \
         dpkg \
         lsb-release \
     && rm -rf /var/lib/apt/lists/*
