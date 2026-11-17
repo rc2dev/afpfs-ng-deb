@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 # For cloning: git ca-certificates
 # For building: build-essential libfuse-dev libreadline-dev

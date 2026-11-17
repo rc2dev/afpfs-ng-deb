@@ -4,14 +4,14 @@ set -euo pipefail
 
 readonly pkg_name="afpfs-ng"
 declare pkg_version  # Will be derived from commit below.
-readonly repo_commit="f6e24eb73c9283732c3b5d9cb101a1e2e4fade3e"
+readonly repo_commit="e107bd4939d9332e5eb70ab0c09479b7a87d18e2"
 readonly pkg_revision="1"
 
 readonly pkg_arch="$(dpkg-architecture -qDEB_BUILD_ARCH)"
 readonly debian_codename="$(lsb_release -cs)"
 readonly pkg_desc="Client for the Apple Filing Protocol"
 readonly pkg_maintainer="Rafael Cavalcanti <dev@rafaelc.org>"
-readonly pkg_depends="fuse"
+readonly pkg_depends="fuse3, libfuse2t64"
 readonly pkg_section="utils"
 readonly pkg_priority="optional"
 
@@ -31,7 +31,7 @@ main() {
 prepare() {
   mkdir -p "$repo_dir" 
   if [[ ! -d "$repo_dir"/.git ]]; then
-    git clone --depth=1 "$repo_url" "$repo_dir"
+    git clone "$repo_url" "$repo_dir"
   fi
   
   cd "$repo_dir"
@@ -51,7 +51,8 @@ build() {
   rm -rf "$build_dir"/*
 
   cd "$repo_dir"
-  ./configure --prefix="$build_dir"
+  # Keep the legacy upstream build compatible with modern GCC; flags match Arch's package.
+  CFLAGS="${CFLAGS:-} -fcommon -Wno-implicit-function-declaration" ./configure --prefix="$build_dir"
   make -j"$(nproc)"
   make install
 }
