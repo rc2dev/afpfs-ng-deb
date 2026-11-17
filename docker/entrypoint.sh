@@ -5,13 +5,13 @@ set -euo pipefail
 readonly pkg_name="afpfs-ng"
 declare pkg_version  # Will be derived from commit below.
 readonly repo_commit="e107bd4939d9332e5eb70ab0c09479b7a87d18e2"
-readonly pkg_revision="1"
+readonly pkg_revision="2"
 
 readonly pkg_arch="$(dpkg-architecture -qDEB_BUILD_ARCH)"
 readonly debian_codename="$(lsb_release -cs)"
 readonly pkg_desc="Client for the Apple Filing Protocol"
 readonly pkg_maintainer="Rafael Cavalcanti <dev@rafaelc.org>"
-readonly pkg_depends="fuse3, libfuse2t64"
+readonly pkg_depends="fuse3, libfuse2t64, libgcrypt20, libgmp10"
 readonly pkg_section="utils"
 readonly pkg_priority="optional"
 
