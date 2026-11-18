@@ -25,7 +25,6 @@ make
 
 The deb will be available in the `./dist` directory.
 
-
 ## Installing the package
 
 ```bash
@@ -40,4 +39,4 @@ If you don't want to build it yourself, pre-built ARM64 deb packages are availab
 
 Licensed under [GPLv3](LICENSE)
 
-Copyright (C) 2025 [Rafael Cavalcanti](https://rafaelc.org/dev)
+Copyright (C) 2025-2026 [Rafael Cavalcanti](https://rafaelc.org/dev)
