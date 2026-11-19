@@ -33,7 +33,9 @@ sudo apt install ./dist/<name_of_file>.deb
 
 ## Releases
 
-If you don't want to build it yourself, pre-built ARM64 deb packages are available on [Releases](https://github.com/rc2dev/afpfs-ng-deb/releases).
+If you don't want to build it yourself, pre-built deb packages are available on [Releases](https://github.com/rc2dev/afpfs-ng-deb/releases).
+
+The arm64 package was tested on a Raspberry Pi. The amd64 package was built by GitHub Actions and is provided as is.
 
 ## License
 
