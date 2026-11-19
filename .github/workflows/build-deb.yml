@@ -1,0 +1,41 @@
+name: Build Debian packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      architecture:
+        description: Package architecture
+        type: choice
+        required: true
+        default: amd64
+        options:
+          - both
+          - amd64
+          - arm64
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.arch }} package
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: ${{ fromJSON(inputs.architecture == 'both' && '["amd64", "arm64"]' || format('["{0}"]', inputs.architecture)) }}
+    runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Build package
+        run: make package
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/*.deb
+          if-no-files-found: error
+          archive: false
